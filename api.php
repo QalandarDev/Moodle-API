@@ -30,7 +30,7 @@ class api
 
         try {
             $this->pdo = new PDO(
-                "mysql:host={$CFG->db['host']};dbname={$CFG->db['name']}",
+                "mysql:host={$CFG->db['host']};dbname={$CFG->db['name']};port=3306",
                 $CFG->db['user'],
                 $CFG->db['pass']
             );
@@ -279,16 +279,19 @@ class api
         if ($html->find("tbody")) {
             $tr = $html->find("tbody")[0]->find('tr[class=""]');
             $js = [];
+            $js_data = [];
             foreach ($tr as $row) {
+                $jss["name"] = $row->find("a")[0]->innertext;
                 $jss["id"] = explode(
                     "id=",
                     explode("&amp;", $row->find("a")[0]->href)[1]
                 )[1];
-                $jss["name"] = $row->find("a")[0]->innertext;
                 $jss["grade"] = $row->find("td")[1]->innertext;
                 $js[] = $jss;
+                $js_data[] = implode(";", $jss);
             }
-
+            $data = implode("\n", $js_data);
+            file_put_contents("grades.txt", $data);
         } else {
             $js = [
                 'ok' => false,
