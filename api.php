@@ -150,11 +150,11 @@ class api
         $js = [];
         $js_data = [];
         foreach ($tr as $t) {
-            $js1["Log in"] = $t->find("td")[0]->innertext;
-            $js1["Last access"] = $t->find("td")[1]->innertext;
-            $js1["IP address"] = $t->find("td")[2]->find("a")[0]->innertext;
-            $js1["id"] = $t->find("td")[3]->find("a")
-            ? strstr(explode("delete=", $t->find("td")[3]->find("a")[0]->href)[1], "&", true)
+            $js1["Log in"] = $t->find('td[class="cell c0"]')[0]->plaintext;
+            $js1["Last access"] = $t->find('td[class="cell c1"]')[0]->plaintext;
+            $js1["IP address"] = $t->find('td[class="cell c2"]')[0]->plaintext;
+            $js1["id"] = $t->find('td[style="text-align:right;"]')[0]->find('a')
+            ? strstr(explode("delete=", $t->find('td[style="text-align:right;"]')[0]->find("a")[0]->href)[1], "&", true)
             : "NULL";
             $js[] = $js1;
             $js_data[] = implode(";", $js1);
@@ -356,7 +356,6 @@ class api
         $ch = curl_init($CFG->moodle . "/mod/resource/view.php?id={$id}&redirect=true");
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->cookiePath);
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->cookiePath);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         $info = curl_getinfo($ch);
