@@ -52,7 +52,6 @@ class api
             ),
             true
         );
-        echo $res;
         if (!array_key_exists("error", $res)) {
             unlink($this->cookiePath);
             $ch = curl_init($CFG->moodle . "/login/index.php");
