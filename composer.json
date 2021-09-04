@@ -1,0 +1,13 @@
+{
+    "name": "qalandaraxmedov/moodle-api",
+    "description": "This is project for Moodle Telegram Bot",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AQDEV",
+            "email": "uzwebdevolopersn2@gmail.com"
+        }
+    ],
+    "require": {}
+}
